@@ -45,7 +45,7 @@ class TopicClassificationView(generic.FormView):
             return render_to_response('app/error.html', {'error_message': 'Cannot download topic'})
 
         try:
-            resp = send_classify_request('http://localhost:8000', raw_text, label_n)
+            resp = send_classify_request('http://localhost:8001', raw_text, label_n)
             prediction = json.loads(resp.headers['prediction'])
         except Exception as e:
             logging.debug('Server is down')
@@ -60,12 +60,16 @@ class TextClassificationView(generic.FormView):
     form_class = TextClassificationForm
 
     def form_valid(self, form):
-        raw_text = form.data['text']
+        raw_text = form.data.get('text', '').strip()
+
+        if raw_text == '':
+            return render_to_response('app/error.html', {'error_message': 'Text field can not be empty'})
+
         label_n = form.data['label_n']
-        name = form.clean_data['name']
+        name = form.data['name']
 
         try:
-            resp = send_classify_request('http://localhost:8000', raw_text, label_n)
+            resp = send_classify_request('http://localhost:8001', raw_text, label_n)
             prediction = json.loads(resp.headers['prediction'])
         except Exception as e:
             logging.debug('Server is down')
