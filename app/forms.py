@@ -2,7 +2,7 @@ from django import forms
 
 
 class TopicClassificationForm(forms.Form):
-    post_url = forms.CharField()
+    topic_id = forms.IntegerField(min_value=1, max_value=300000)
     label_n = forms.IntegerField(min_value=1, max_value=100)
 
 
