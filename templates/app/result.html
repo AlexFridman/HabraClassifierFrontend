@@ -1,0 +1,40 @@
+{% extends "app/master.html" %}
+
+{% block content %}
+    {% if name %}
+        <div class="row">
+            <h3 align="center">{{ name }}</h3>
+        </div>
+    {% endif %}
+    <div class="row">
+        {% if actual_labels %}
+            <div class="col-md-6">
+                <h2>Predicted labels:</h2>
+                <ol>
+                    {% for label in predicted %}
+                        <li>{{ label }}</li>
+                    {% endfor %}
+                </ol>
+            </div>
+            <div class="col-md-6">
+                <h2>Actual labels:</h2>
+                <ol>
+                    {% for label in actual %}
+                        <li>{{ label }}</li>
+                    {% endfor %}
+                </ol>
+            </div>
+        {% else %}
+            <div class="col-md-4"/>
+            <div class="col-md-4">
+                <h2>Predicted labels:</h2>
+                <ol>
+                    {% for label in actual %}
+                        <li>{{ label }}</li>
+                    {% endfor %}
+                </ol>
+            </div>
+            <div class="col-md-4"/>
+        {% endif %}
+    </div>
+{% endblock %}
