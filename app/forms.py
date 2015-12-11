@@ -7,5 +7,6 @@ class TopicClassificationForm(forms.Form):
 
 
 class TextClassificationForm(forms.Form):
+    name = forms.CharField()
     text = forms.Textarea()
     label_n = forms.IntegerField(min_value=1, max_value=100)
